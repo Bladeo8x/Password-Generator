@@ -14,10 +14,10 @@
 </head>
 
 <body>
-
+    <!--  -->
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid d-flex justify-content-center">
-            <span class="navbar-brand mb-0 h1">Password Generator</span>
+            <span class="navbar-brand mb-0 h1 mh-1">*Password Generator*</span>
         </div>
     </nav>
 
@@ -28,11 +28,45 @@
 
     <div class="d-grid gap-2 col-6 mx-auto">
 
-        <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
+        <textarea readonly id="PasswordDisplay" placeholder="Your Secure Password"
+            aria-label="Generated Password"></textarea>
     </div>
     <br>
+
+
+    <div class="container text-center">
+        <div class="row align-items-center">
+            <div class="col">
+                <label for="Include-UpperCase">UpperCase</label>
+            </div>
+            <div class="col">
+                <input class="ml-3" type="checkbox">
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <label for="Include-Numbers">Numbers</label>
+            </div>
+            <div class="col">
+                <input class="ml-3" type="checkbox">
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <label for="Include-SpecialCharacters">Special Characters</label>
+            </div>
+            <div class="col">
+                <input class="ml-3" type="checkbox">
+            </div>
+        </div>
+    </div>
+
+    <br>
+
     <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" type="button">Generate Password</button>
+        <button class="btn btn-primary" type="button" id="Password-GeneratorForm">Generate Password</button>
+
+
 
         <!-- Bootstrap Scripts -->
         <script src="main.js"></script>
