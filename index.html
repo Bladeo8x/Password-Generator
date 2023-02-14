@@ -31,51 +31,48 @@
         <textarea readonly id="PasswordDisplay" placeholder="Your Secure Password"
             aria-label="Generated Password"></textarea>
     </div>
-    <br>
-
-
-    <div class="container text-center">
-        <!-- UpperCase Section -->
-        <div class="row align-items-center">
-            <div class="col">
-                <label for="includeUpperCase">UpperCase</label>
+    <div class="include-box" id="passwordGeneratorForm">
+        <div class="container text-center mt-4 ml-3">
+            <!-- UpperCase Section -->
+            <div class="row align-items-center">
+                <div class="col">
+                    <label for="includeUpperCase">UpperCase</label>
+                </div>
+                <div class="col">
+                    <input class="ml-3" type="checkbox" id="includeUpperCase">
+                </div>
             </div>
-            <div class="col">
-                <input class="ml-3" type="checkbox" id="includeUpperCase">
+            <!-- Numbers Section -->
+            <div class="row align-items-center">
+                <div class="col">
+                    <label for="iuncludeNumbers">Numbers</label>
+                </div>
+                <div class="col">
+                    <input class="ml-3" type="checkbox" id="includeNumbers">
+                </div>
             </div>
-        </div>
-        <!-- Numbers Section -->
-        <div class="row align-items-center">
-            <div class="col">
-                <label for="iuncludeNumbers">Numbers</label>
-            </div>
-            <div class="col">
-                <input class="ml-3" type="checkbox" id="includeNumbers">
-            </div>
-        </div>
-        <!-- Special Characters Section -->
-        <div class="row align-items-center">
-            <div class="col">
-                <label for="includeSpecialCharacters">Special Characters</label>
-            </div>
-            <div class="col">
-                <input class="ml-3" type="checkbox" id="includeSpecialCharacters">
+            <!-- Special Characters Section -->
+            <div class="row align-items-center">
+                <div class="col">
+                    <label for="includeSpecialCharacters">Special Characters</label>
+                </div>
+                <div class="col">
+                    <input class="ml-3" type="checkbox" id="includeSpecialCharacters">
+                </div>
             </div>
         </div>
     </div>
 
-    <br>
     <!-- Generate Button Password -->
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" type="button" id="generatePassword">Generate Password</button>
+    <div class="d-grid gap-2 col-6 mx-auto mt-4">
+        <button class="btn btn-primary" type="submit" id="generateBtn">Generate Password</button>
+    </div>
 
-
-
-        <!-- Bootstrap Scripts -->
-        <script src="main.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous"></script>
+    <!-- Bootstrap Scripts -->
+    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 
 </body>
 

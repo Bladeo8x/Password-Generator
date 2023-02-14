@@ -1,9 +1,9 @@
-const includeUppercaseElement = document.getElementById("Include-Uppercase");
-const includeNumbersElement = document.getElementById("Include-Numbers");
+const includeUppercaseElement = document.getElementById("includeUppercase");
+const includeNumbersElement = document.getElementById("includeNumbers");
 const includeSpecialCharactersElement = document.getElementById(
-  "Include-SpecialCharacters"
+  "includeSpecialCharacters"
 );
-const form = document.getElementById("Password-GeneratorForm");
+const form = document.getElementById("passwordGeneratorForm");
 const PasswordDisplay = document.getElementById("PasswordDisplay");
 
 // Assignment of variables
