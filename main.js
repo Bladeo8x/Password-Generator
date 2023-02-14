@@ -1,6 +1,6 @@
 const includeUppercaseElement = document.getElementById("Include-Uppercase");
 const includeNumbersElement = document.getElementById("Include-Numbers");
-const includeSymbolsElement = document.getElementById(
+const includeSpecialCharactersElement = document.getElementById(
   "Include-SpecialCharacters"
 );
 const form = document.getElementById("Password-GeneratorForm");
@@ -15,3 +15,51 @@ const SpecialCharacters = arrayFromLowToHigh(33, 47)
   .concat(arrayFromLowToHigh(58, 64))
   .concat(arrayFromLowToHigh(91, 96))
   .concat(arrayFromLowToHigh(123, 126));
+
+// Adding EventListeners
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const includeUppercase = includeUppercaseElement.checked;
+  const includeNumbers = includeNumbersElement.checked;
+  const includeSpecialCharacters = includeSpecialCharactersElement.checked;
+  const password = generatePassword(
+    includeUppercase,
+    includeNumbers,
+    includeSpecialCharacters
+  );
+  PasswordDisplay.innerText = password;
+});
+
+function generatePassword(
+  includeUppercase,
+  includeNumbers,
+  includeSpecialCharacters
+) {
+  let charCodes = LOWERCASE_CHAR_CODES;
+  if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);
+  if (includeSpecialCharacters) charCodes = charCodes.concat(SYMBOL_CHAR_CODES);
+  if (includeNumbers) charCodes = charCodes.concat(NUMBER_CHAR_CODES);
+
+  const passwordCharacters = [];
+  for (let i = 0; i < characterAmount; i++) {
+    const characterCode =
+      charCodes[Math.floor(Math.random() * charCodes.length)];
+    passwordCharacters.push(String.fromCharCode(characterCode));
+  }
+  return passwordCharacters.join("");
+}
+
+function arrayFromLowToHigh(low, high) {
+  const array = [];
+  for (let i = low; i <= high; i++) {
+    array.push(i);
+  }
+  return array;
+}
+
+function syncCharacterAmount(e) {
+  const value = e.target.value;
+  characterAmountNumber.value = value;
+  characterAmountRange.value = value;
+}

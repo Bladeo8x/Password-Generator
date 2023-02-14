@@ -26,8 +26,8 @@
     </div>
     <br>
 
+    <!-- Password Holder Area -->
     <div class="d-grid gap-2 col-6 mx-auto">
-
         <textarea readonly id="PasswordDisplay" placeholder="Your Secure Password"
             aria-label="Generated Password"></textarea>
     </div>
@@ -35,36 +35,39 @@
 
 
     <div class="container text-center">
+        <!-- UpperCase Section -->
         <div class="row align-items-center">
             <div class="col">
-                <label for="Include-UpperCase">UpperCase</label>
+                <label for="includeUpperCase">UpperCase</label>
             </div>
             <div class="col">
-                <input class="ml-3" type="checkbox">
+                <input class="ml-3" type="checkbox" id="includeUpperCase">
             </div>
         </div>
+        <!-- Numbers Section -->
         <div class="row align-items-center">
             <div class="col">
-                <label for="Include-Numbers">Numbers</label>
+                <label for="iuncludeNumbers">Numbers</label>
             </div>
             <div class="col">
-                <input class="ml-3" type="checkbox">
+                <input class="ml-3" type="checkbox" id="includeNumbers">
             </div>
         </div>
+        <!-- Special Characters Section -->
         <div class="row align-items-center">
             <div class="col">
-                <label for="Include-SpecialCharacters">Special Characters</label>
+                <label for="includeSpecialCharacters">Special Characters</label>
             </div>
             <div class="col">
-                <input class="ml-3" type="checkbox">
+                <input class="ml-3" type="checkbox" id="includeSpecialCharacters">
             </div>
         </div>
     </div>
 
     <br>
-
+    <!-- Generate Button Password -->
     <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" type="button" id="Password-GeneratorForm">Generate Password</button>
+        <button class="btn btn-primary" type="button" id="generatePassword">Generate Password</button>
 
 
 
