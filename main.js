@@ -6,6 +6,8 @@ const includeSpecialCharactersElement = document.getElementById(
 );
 const form = document.getElementById("passwordGeneratorForm");
 const PasswordDisplay = document.getElementById("PasswordDisplay");
+const characterAmountRange = document.getElementById("characterAmountRange");
+const characterAmountNumber = document.getElementById("characterAmountNumber");
 
 // Assignment of variables
 
@@ -17,34 +19,38 @@ const SpecialCharacters = arrayFromLowToHigh(33, 47)
   .concat(arrayFromLowToHigh(91, 96))
   .concat(arrayFromLowToHigh(123, 126));
 
+characterAmountNumber.addEventListener("input", syncCharacterAmount);
+characterAmountRange.addEventListener("input", syncCharacterAmount);
+
 // Adding EventListeners
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const characterAmount = characterAmountNumber.value;
   const includeLowercase = includeLowercaseElement.checked;
   const includeUppercase = includeUppercaseElement.checked;
   const includeNumbers = includeNumbersElement.checked;
   const includeSpecialCharacters = includeSpecialCharactersElement.checked;
-  const password = generatePassword(
+  const Password = generatePassword(
+    characterAmount,
     includeLowercase,
     includeUppercase,
     includeNumbers,
     includeSpecialCharacters
   );
-  PasswordDisplay.innerText = password;
+  PasswordDisplay.innerText = Password;
 });
 
 function generatePassword(
-  includeLowercase,
+  characterAmount,
   includeUppercase,
   includeNumbers,
   includeSpecialCharacters
 ) {
-  let charCodes = LOWERCASE_CHAR_CODES;
-  if (includeLowercase) charCodes = charCodes.concat(LOWERCASE_CHAR_CODES);
-  if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);
-  if (includeSpecialCharacters) charCodes = charCodes.concat(SYMBOL_CHAR_CODES);
-  if (includeNumbers) charCodes = charCodes.concat(NUMBER_CHAR_CODES);
+  let charCodes = LowerCase;
+  if (includeUppercase) charCodes = charCodes.concat(UpperCase);
+  if (includeSpecialCharacters) charCodes = charCodes.concat(SpecialCharacters);
+  if (includeNumbers) charCodes = charCodes.concat(Numbers);
 
   // Arrays included
   const passwordCharacters = [];
@@ -70,4 +76,6 @@ function syncCharacterAmount(e) {
   characterAmountRange.value = value;
 }
 
-if (generateBtn) console.log("hola pass");
+// function generatePassword() {
+//   document.getElementById("PasswordDisplay");
+// console.log("hola pass");
