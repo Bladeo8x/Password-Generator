@@ -1,3 +1,4 @@
+const includeLowercaseElement = document.getElementById("includeLowercase");
 const includeUppercaseElement = document.getElementById("includeUppercase");
 const includeNumbersElement = document.getElementById("includeNumbers");
 const includeSpecialCharactersElement = document.getElementById(
@@ -20,10 +21,12 @@ const SpecialCharacters = arrayFromLowToHigh(33, 47)
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const includeLowercase = includeLowercaseElement.checked;
   const includeUppercase = includeUppercaseElement.checked;
   const includeNumbers = includeNumbersElement.checked;
   const includeSpecialCharacters = includeSpecialCharactersElement.checked;
   const password = generatePassword(
+    includeLowercase,
     includeUppercase,
     includeNumbers,
     includeSpecialCharacters
@@ -32,15 +35,18 @@ form.addEventListener("submit", (e) => {
 });
 
 function generatePassword(
+  includeLowercase,
   includeUppercase,
   includeNumbers,
   includeSpecialCharacters
 ) {
   let charCodes = LOWERCASE_CHAR_CODES;
+  if (includeLowercase) charCodes = charCodes.concat(LOWERCASE_CHAR_CODES);
   if (includeUppercase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);
   if (includeSpecialCharacters) charCodes = charCodes.concat(SYMBOL_CHAR_CODES);
   if (includeNumbers) charCodes = charCodes.concat(NUMBER_CHAR_CODES);
 
+  // Arrays included
   const passwordCharacters = [];
   for (let i = 0; i < characterAmount; i++) {
     const characterCode =
@@ -63,3 +69,5 @@ function syncCharacterAmount(e) {
   characterAmountNumber.value = value;
   characterAmountRange.value = value;
 }
+
+if (generateBtn) console.log("hola pass");
