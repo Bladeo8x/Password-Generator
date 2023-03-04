@@ -19,8 +19,8 @@ const SpecialCharacters = arrayFromLowToHigh(33, 47)
   .concat(arrayFromLowToHigh(91, 96))
   .concat(arrayFromLowToHigh(123, 126));
 
-characterAmountNumber.addEventListener("input", syncCharacterAmount);
-characterAmountRange.addEventListener("input", syncCharacterAmount);
+// characterAmountNumber.addEventListener("input", syncCharacterAmount);
+// characterAmountRange.addEventListener("input", syncCharacterAmount);
 
 // Adding EventListeners
 
@@ -61,7 +61,7 @@ function generatePassword(
   }
   return passwordCharacters.join("");
 }
-
+// Methods or fxs to create operations.
 function arrayFromLowToHigh(low, high) {
   const array = [];
   for (let i = low; i <= high; i++) {
@@ -78,4 +78,5 @@ function syncCharacterAmount(e) {
 
 // function generatePassword() {
 //   document.getElementById("PasswordDisplay");
-// console.log("hola pass");
+//   console.log("hola pass");
+// }

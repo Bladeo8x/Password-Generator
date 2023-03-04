@@ -28,11 +28,19 @@
 
     <!-- Password Holder Area -->
     <div class="d-grid gap-2 col-6 mx-auto">
-        <textarea readonly id="PasswordDisplay" placeholder="Your Secure Password"
-            aria-label="Generated Password"></textarea>
+        <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
     </div>
     <div class="include-box" id="passwordGeneratorForm">
         <div class="container text-center mt-4 ml-3">
+            <!-- LowerCase Section -->
+            <div class="row align-items-center">
+                <div class="col">
+                    <label for="includeLowerCase">LowerCase</label>
+                </div>
+                <div class="col">
+                    <input class="ml-3" type="checkbox" id="includeLowerCase">
+                </div>
+            </div>
             <!-- UpperCase Section -->
             <div class="row align-items-center">
                 <div class="col">
@@ -65,8 +73,7 @@
 
     <!-- Generate Button Password -->
     <div class="d-grid gap-2 col-6 mx-auto mt-4">
-        <button class="btn btn-primary" type="submit">Generate
-            Password</button>
+        <button id="generate" class="btn btn-primary">Generate Password</button>
     </div>
 
     <!-- Bootstrap Scripts -->
