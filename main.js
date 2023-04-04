@@ -1,82 +1,70 @@
-const includeLowercaseElement = document.getElementById("includeLowercase");
-const includeUppercaseElement = document.getElementById("includeUppercase");
-const includeNumbersElement = document.getElementById("includeNumbers");
-const includeSpecialCharactersElement = document.getElementById(
-  "includeSpecialCharacters"
-);
-const form = document.getElementById("passwordGeneratorForm");
-const PasswordDisplay = document.getElementById("PasswordDisplay");
-const characterAmountRange = document.getElementById("characterAmountRange");
-const characterAmountNumber = document.getElementById("characterAmountNumber");
+// Define the available characters for each attribute
+const LowerCase = "abcdefghijklmnopqrstuvwxyz";
+const UpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const Numbers = "0123456789";
+const SpecialCharacters = "!#$%&()*+,-./:;<=>?@[]^_`{|}~";
 
-// Assignment of variables
+// Function to generate a new password
+function generatePassword() {
+  // Define the length and attributes of the password
+  const passwordMinLength = 8;
+  const passwordMaxLength = 24;
+  const passwordAttributes = [
+    { name: "LowerCase", value: true },
+    { name: "UpperCase", value: true },
+    { name: "Numbers", value: true },
+    { name: "SpecialCharacters", value: true },
+  ];
 
-const LowerCase = arrayFromLowToHigh(97, 122);
-const UpperCase = arrayFromLowToHigh(65, 90);
-const Numbers = arrayFromLowToHigh(48, 57);
-const SpecialCharacters = arrayFromLowToHigh(33, 47)
-  .concat(arrayFromLowToHigh(58, 64))
-  .concat(arrayFromLowToHigh(91, 96))
-  .concat(arrayFromLowToHigh(123, 126));
-
-// characterAmountNumber.addEventListener("input", syncCharacterAmount);
-// characterAmountRange.addEventListener("input", syncCharacterAmount);
-
-// Adding EventListeners
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const characterAmount = characterAmountNumber.value;
-  const includeLowercase = includeLowercaseElement.checked;
-  const includeUppercase = includeUppercaseElement.checked;
-  const includeNumbers = includeNumbersElement.checked;
-  const includeSpecialCharacters = includeSpecialCharactersElement.checked;
-  const Password = generatePassword(
-    characterAmount,
-    includeLowercase,
-    includeUppercase,
-    includeNumbers,
-    includeSpecialCharacters
+  // Generate a new password based on the length and attributes
+  const passwordLength = Math.floor(
+    Math.random() * (passwordMaxLength - passwordMinLength + 1) +
+      passwordMinLength
   );
-  PasswordDisplay.innerText = Password;
+  let newPassword = "";
+  let availableCharacters = "";
+
+  // Build the available characters based on the selected attributes
+  passwordAttributes.forEach((attribute) => {
+    if (attribute.value) {
+      availableCharacters += eval(attribute.name);
+    }
+  });
+
+  // Generate the password using the available characters
+  for (let i = 0; i < passwordLength; i++) {
+    newPassword += availableCharacters.charAt(
+      Math.floor(Math.random() * availableCharacters.length)
+    );
+  }
+
+  // Return the new password
+  return newPassword;
+}
+
+// Get the Generate, Clear, and Save buttons
+const generateBtn = document.getElementById("generateBtn");
+const clearBtn = document.getElementById("clearBtn");
+const saveBtn = document.getElementById("saveBtn");
+
+// Add an event listener to the Generate button
+generateBtn.addEventListener("click", function () {
+  // Generate a new password
+  const newPassword = generatePassword();
+
+  // Update the password output with the new password
+  const passwordOutput = document.getElementById("passwordOutput");
+  passwordOutput.value = newPassword;
 });
 
-function generatePassword(
-  characterAmount,
-  includeUppercase,
-  includeNumbers,
-  includeSpecialCharacters
-) {
-  let charCodes = LowerCase;
-  if (includeUppercase) charCodes = charCodes.concat(UpperCase);
-  if (includeSpecialCharacters) charCodes = charCodes.concat(SpecialCharacters);
-  if (includeNumbers) charCodes = charCodes.concat(Numbers);
+// Add an event listener to the Clear button
+clearBtn.addEventListener("click", function () {
+  // Clear the password output
+  const passwordOutput = document.getElementById("passwordOutput");
+  passwordOutput.value = "";
+});
 
-  // Arrays included
-  const passwordCharacters = [];
-  for (let i = 0; i < characterAmount; i++) {
-    const characterCode =
-      charCodes[Math.floor(Math.random() * charCodes.length)];
-    passwordCharacters.push(String.fromCharCode(characterCode));
-  }
-  return passwordCharacters.join("");
-}
-// Methods or fxs to create operations.
-function arrayFromLowToHigh(low, high) {
-  const array = [];
-  for (let i = low; i <= high; i++) {
-    array.push(i);
-  }
-  return array;
-}
-
-function syncCharacterAmount(e) {
-  const value = e.target.value;
-  characterAmountNumber.value = value;
-  characterAmountRange.value = value;
-}
-
-// function generatePassword() {
-//   document.getElementById("PasswordDisplay");
-//   console.log("hola pass");
-// }
+// Add an event listener to the Save button
+saveBtn.addEventListener("click", function () {
+  // TODO: Save the password to a server or to local storage
+});
