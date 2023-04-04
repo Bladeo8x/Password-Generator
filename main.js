@@ -77,5 +77,20 @@ clearBtn.addEventListener("click", function () {
 
 // Add an event listener to the Save button
 saveBtn.addEventListener("click", function () {
-  // TODO: Save the password to a server or to local storage
+  // Save the password to local storage
+  const newPassword = document.getElementById("passwordOutput").value;
+  localStorage.setItem("savedPassword", newPassword);
+  savedPasswords.push(newPassword);
 });
+
+// Adding Modal or Text Area to Show the Passwords Saved
+let savedPasswords = [];
+
+function showSavedPasswords() {
+  const savedPasswordsTextarea = document.createElement("textarea");
+  savedPasswordsTextarea.value = savedPasswords.join("\n");
+  document.body.appendChild(savedPasswordsTextarea);
+}
+
+const viewPasswordsBtn = document.getElementById("viewPasswordsBtn");
+viewPasswordsBtn.addEventListener("click", showSavedPasswords);

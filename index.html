@@ -103,7 +103,29 @@
             <button id="generateBtn" class="btn btn-primary">Generate Password</button>
             <button type="button" class="btn btn-secondary" id="clearBtn">Clean</button>
             <button type="button" class="btn btn-success" id="saveBtn">Save</button>
-            <button type="button" class="btn btn-info" id="viewPasswordsBtn">Saved passwords</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#savedPasswordsModal"
+                id="viewPasswordsBtn">Saved passwords</button>
+        </div>
+
+        <!-- Modal for Passwords Saved -->
+        <div class="modal fade" id="savedPasswordsModal" tabindex="-1" role="dialog"
+            aria-labelledby="savedPasswordsModalLabel" aria-hidden="true">
+            <div class="modal-dialog text-center" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title" id="savedPasswordsModalLabel">Passwords</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea id="savedPasswordsTextarea" rows="10"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Bootstrap Scripts -->
