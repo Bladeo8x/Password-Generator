@@ -10,17 +10,28 @@ function generatePassword() {
   const passwordMinLength = 8;
   const passwordMaxLength = 24;
   const passwordAttributes = [
-    { name: "LowerCase", value: true },
-    { name: "UpperCase", value: true },
-    { name: "Numbers", value: true },
-    { name: "SpecialCharacters", value: true },
+    {
+      name: "LowerCase",
+      value: document.getElementById("lowercaseCheckbox").checked,
+    },
+    {
+      name: "UpperCase",
+      value: document.getElementById("uppercaseCheckbox").checked,
+    },
+    {
+      name: "Numbers",
+      value: document.getElementById("numbersCheckbox").checked,
+    },
+    {
+      name: "SpecialCharacters",
+      value: document.getElementById("specialCharactersCheckbox").checked,
+    },
   ];
 
   // Generate a new password based on the length and attributes
-  const passwordLength = Math.floor(
-    Math.random() * (passwordMaxLength - passwordMinLength + 1) +
-      passwordMinLength
-  );
+  // Get the password length from the input field
+  const passwordLength = document.getElementById("passwordLengthInput").value;
+
   let newPassword = "";
   let availableCharacters = "";
 
