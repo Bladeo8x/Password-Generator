@@ -66,10 +66,25 @@
                             <label for="passwordLengthInput">Password Length:</label>
                         </div>
                         <div class="col-sm-6">
-                            <input type="number" class="form-control text-right" id="passwordLengthInput" min="8"
-                                max="24" value="8">
+                            <input type="range" class="form-control-range" id="passwordLengthInput" min="8" max="24"
+                                value="8">
+                            <output for="passwordLengthInput" id="passwordLengthOutput">8</output> characters
                         </div>
                     </div>
+                    <!-- <div class="form-group row align-items-center" style="overflow-x: auto;">
+                        <div class="col-sm-3">
+                            <label for="passwordLengthInput">Password Length:</label>
+                        </div>
+                        <div class="col-sm-9" style="flex: 0 0 auto;">
+                            <div class="input-group">
+                                <input type="number" class="form-control text-right" id="passwordLengthInput" min="8"
+                                    max="24" value="8">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">characters</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
 
                     <!-- LowerCase Section -->
                     <div class="form-group row align-items-center">

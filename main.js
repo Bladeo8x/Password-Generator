@@ -27,6 +27,13 @@ const passwordAttributes = [
   },
 ];
 
+// Update output element with current value of range slider
+document
+  .getElementById("passwordLengthInput")
+  .addEventListener("input", function () {
+    document.getElementById("passwordLengthOutput").textContent = this.value;
+  });
+
 // Function to generate a new password
 function generatePassword() {
   // Generate a new password based on the length and attributes
@@ -58,7 +65,6 @@ function generatePassword() {
   if (SpecialCharacters) {
     availableCharacters += "!@#$%^&*()_+-=[]{}|;':\"<>,.?/\\";
   }
-
   // Generate the password using the available characters
   for (let i = 0; i < passwordLength; i++) {
     newPassword += availableCharacters.charAt(
@@ -103,17 +109,53 @@ generateBtn.addEventListener("click", () => {
 
 // Add an event listener to the Clear button
 clearBtn.addEventListener("click", () => {
-  swal("Try Another One!", "Password Deleted!", "warning");
-  // Clear the password output
+  // Check if there's any information in the password output
   const passwordOutput = document.getElementById("passwordOutput");
-  passwordOutput.value = "";
+  if (passwordOutput.value !== "") {
+    swal({
+      title: "Are you sure?",
+      text: "This will clear the generated password. Are you sure you want to continue?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        swal(
+          "Password Deleted!",
+          "The generated password has been cleared.",
+          "warning"
+        );
+        // Clear the password output
+        passwordOutput.value = "";
+      }
+    });
+  } else {
+    swal(
+      "No Password Generated!",
+      "There's no generated password to clear.",
+      "error"
+    );
+  }
 });
 
 // Add an event listener to the Save button
 saveBtn.addEventListener("click", () => {
-  swal("Locked!", "Password Saved!", "success");
-  // Save the password array to local storage as JSON
-  localStorage.setItem("savedPasswords", JSON.stringify(savedPasswords));
+  // Check if there are any saved passwords
+  if (savedPasswords.length > 0) {
+    swal(
+      "Password Saved!",
+      "The generated password has been saved.",
+      "success"
+    );
+    // Save the password array to local storage as JSON
+    localStorage.setItem("savedPasswords", JSON.stringify(savedPasswords));
+  } else {
+    swal(
+      "No Passwords to Save!",
+      "There are no generated passwords to save.",
+      "error"
+    );
+  }
 });
 
 // Add an event listener to the View passwords button
@@ -137,13 +179,33 @@ viewPasswordsBtn.addEventListener("click", () => {
   // Add an event listener to the "Clear Local Storage" button
   const clearLocalStorageBtn = document.getElementById("clearLocalStorageBtn");
   clearLocalStorageBtn.addEventListener("click", () => {
-    // Clear the saved passwords from local storage
-    localStorage.removeItem("savedPasswords");
-    // Display a confirmation message
-    swal("Passwords Saved Cleared!", "All data has been deleted.", "success");
+    // Check if the textarea value is empty
+    if (textarea.value === "") {
+      swal(
+        "Empty Field!",
+        "The text area is empty. There are no saved passwords to clear.",
+        "error"
+      );
+    } else {
+      // Display a confirmation dialog before clearing local storage
+      swal({
+        title: "Are you sure?",
+        text: "This will clear all saved passwords. Are you sure you want to continue?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((confirm) => {
+        if (confirm) {
+          // Clear the saved passwords from local storage
+          localStorage.removeItem("savedPasswords");
+          // Display a success message
+          swal("Passwords Cleared!", "All data has been deleted.", "success");
 
-    // Clear the text area value in the modal
-    textarea.value = "";
+          // Clear the text area value in the modal
+          textarea.value = "";
+        }
+      });
+    }
   });
 
   // Show the modal with passwords saved
