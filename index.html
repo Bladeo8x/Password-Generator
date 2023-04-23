@@ -10,6 +10,10 @@
     <!-- Bootstrap Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- SweetAlert Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -44,97 +48,111 @@
     </div>
     <br>
 
-    <!-- Password Holder Area -->
-    <div class="d-grid gap-2 text-center col-6 mx-auto">
-        <label for="generatedPassword">Password Generated:</label>
-        <textarea id="passwordOutput" placeholder="Your Secure Password" class="form-control text-center"></textarea>
-    </div>
-    <div id="passwordGeneratorForm">
-        <div class="container text-center mt-4">
-            <div class="row align-items-center">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
 
-                <!-- Password Lenght -->
+                <!-- Password Holder Area -->
                 <div class="form-group">
-                    <label for="passwordLengthInput">Password Length:</label>
-                    <input type="number" class="text-center form-control" id="passwordLengthInput" min="8" max="24"
-                        value="8">
+                    <label for="generatedPassword">Password Generated:</label>
+                    <textarea id="passwordOutput" placeholder="Your Secure Password"
+                        class="form-control text-center"></textarea>
                 </div>
-                <!-- LowerCase Section -->
-                <div class="row align-items-center">
-                    <div class="col">
-                        <label for="lowercaseCheckbox">Include lowercase</label>
+
+                <div id="passwordGeneratorForm">
+                    <!-- Password Length -->
+                    <div class="form-group row align-items-center">
+                        <div class="col-sm-6">
+                            <label for="passwordLengthInput">Password Length:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control text-right" id="passwordLengthInput" min="8"
+                                max="24" value="8">
+                        </div>
                     </div>
-                    <div class="col">
-                        <input type="checkbox" id="lowercaseCheckbox" name="lowercase" checked>
+
+                    <!-- LowerCase Section -->
+                    <div class="form-group row align-items-center">
+                        <div class="col-sm-6">
+                            <label for="lowercaseCheckbox">Include lowercase</label>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <input type="checkbox" id="lowercaseCheckbox" name="lowercase" checked>
+                        </div>
+                    </div>
+
+                    <!-- UpperCase Section -->
+                    <div class="form-group row align-items-center">
+                        <div class="col-sm-6">
+                            <label for="uppercaseCheckbox">Include uppercase</label>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <input type="checkbox" id="uppercaseCheckbox" name="uppercase" checked>
+                        </div>
+                    </div>
+
+                    <!-- Numbers Section -->
+                    <div class="form-group row align-items-center">
+                        <div class="col-sm-6">
+                            <label for="numbersCheckbox">Include numbers</label>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <input type="checkbox" id="numbersCheckbox" name="numbers" checked>
+                        </div>
+                    </div>
+
+                    <!-- Special Characters Section -->
+                    <div class="form-group row align-items-center">
+                        <div class="col-sm-6">
+                            <label for="specialCharactersCheckbox">Include special characters</label>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <input type="checkbox" id="specialCharactersCheckbox" name="specialCharacters" checked>
+                        </div>
                     </div>
                 </div>
-                <!-- UpperCase Section -->
-                <div class="row align-items-center">
-                    <div class="col">
-                        <label for="uppercaseCheckbox">Include uppercase</label>
-                    </div>
-                    <div class="col">
-                        <input type="checkbox" id="uppercaseCheckbox" name="uppercase" checked>
-                    </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate | Clean | Save | Saved Passwords Buttons -->
+    <div class="d-grid gap-2 col-6 mx-auto mt-4">
+        <button id="generateBtn" class="btn btn-primary">Generate Password</button>
+        <button type="button" class="btn btn-secondary" id="clearBtn">Clean</button>
+        <button type="button" class="btn btn-success" id="saveBtn">Save</button>
+        <button type="button" class="btn btn-info mb-4" data-toggle="modal" data-target="#savedPasswordsModal"
+            id="viewPasswordsBtn">Saved passwords</button>
+    </div>
+
+    <!-- Modal for Passwords Saved -->
+    <div class="modal fade" id="savedPasswordsModal" tabindex="-1" role="dialog"
+        aria-labelledby="savedPasswordsModalLabel" aria-hidden="true">
+        <div class="modal-dialog text-center" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title" id="savedPasswordsModalLabel">Passwords</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <!-- Numbers Section -->
-                <div class="row align-items-center">
-                    <div class="col">
-                        <label for="numbersCheckbox">Include numbers</label>
-                    </div>
-                    <div class="col">
-                        <input type="checkbox" id="numbersCheckbox" name="numbers" checked>
-                    </div>
+                <div class="modal-body">
+                    <textarea id="savedPasswordsTextarea" rows="10"></textarea>
                 </div>
-                <!-- Special Characters Section -->
-                <div class="row align-items-center">
-                    <div class="col">
-                        <label for="specialCharactersCheckbox">Include special characters</label>
-                    </div>
-                    <div class="col">
-                        <input type="checkbox" id="specialCharactersCheckbox" name="specialCharacters" checked>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Generate | Clean | Save | Saved Passwords Buttons -->
-        <div class="d-grid gap-2 col-6 mx-auto mt-4">
-            <button id="generateBtn" class="btn btn-primary">Generate Password</button>
-            <button type="button" class="btn btn-secondary" id="clearBtn">Clean</button>
-            <button type="button" class="btn btn-success" id="saveBtn">Save</button>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#savedPasswordsModal"
-                id="viewPasswordsBtn">Saved passwords</button>
-        </div>
-
-        <!-- Modal for Passwords Saved -->
-        <div class="modal fade" id="savedPasswordsModal" tabindex="-1" role="dialog"
-            aria-labelledby="savedPasswordsModalLabel" aria-hidden="true">
-            <div class="modal-dialog text-center" role="document">
-                <div class="modal-content text-center">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title" id="savedPasswordsModalLabel">Passwords</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea id="savedPasswordsTextarea" rows="10"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bootstrap Scripts -->
-        <script src="main.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Scripts -->
+    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 
