@@ -1,4 +1,11 @@
-swal("Welcome to my Password Generator!", "Let's Start!");
+// Check if welcome alert has been shown before to avoid re-appearing after RELOADING
+const welcomeAlertShown = localStorage.getItem("welcomeAlertShown");
+if (!welcomeAlertShown) {
+  // Show the welcome alert
+  swal("Welcome to my Password Generator!", "Let's Start!");
+  // Set the flag in local storage to indicate that the welcome alert has been shown
+  localStorage.setItem("welcomeAlertShown", true);
+}
 
 // Define the available characters for each attribute
 const passwordAttributes = [
@@ -64,11 +71,13 @@ function generatePassword() {
 }
 
 // Get the Generate, Clear, Save, and Erase buttons
-const ggenerateBtn = document.getElementById("generateBtn");
+const generateBtn = document.getElementById("generateBtn");
 const clearBtn = document.getElementById("clearBtn");
 const saveBtn = document.getElementById("saveBtn");
-const eraseBtn = document.getElementById("eraseBtn");
 const viewPasswordsBtn = document.getElementById("viewPasswordsBtn");
+
+// Define an empty array for saved passwords
+let savedPasswords = [];
 
 // Add an event listener to the Generate button with SweetAlert
 generateBtn.addEventListener("click", () => {
@@ -80,6 +89,16 @@ generateBtn.addEventListener("click", () => {
   // Update the password output with the new password
   const passwordOutput = document.getElementById("passwordOutput");
   passwordOutput.value = newPassword;
+
+  // Create a JSON object for the generated password
+  const passwordObject = {
+    passwordNumber: savedPasswords.length + 1,
+    passwordValue: newPassword,
+    timestamp: new Date().toLocaleString(),
+  };
+
+  // Add the password object to the savedPasswords array
+  savedPasswords.push(passwordObject);
 });
 
 // Add an event listener to the Clear button
@@ -90,22 +109,19 @@ clearBtn.addEventListener("click", () => {
   passwordOutput.value = "";
 });
 
-// Define an empty array for saved passwords
-let savedPasswords = [];
-
 // Add an event listener to the Save button
 saveBtn.addEventListener("click", () => {
   swal("Locked!", "Password Saved!", "success");
-  // Save the password to local storage
-  const newPassword = document.getElementById("passwordOutput").value;
-  localStorage.setItem("savedPassword", newPassword);
-  // Adding the saved password to the savedPasswords array
-  savedPasswords.push(newPassword);
+  // Save the password array to local storage as JSON
+  localStorage.setItem("savedPasswords", JSON.stringify(savedPasswords));
 });
 
-// ...
 // Add an event listener to the View passwords button
-document.getElementById("viewPasswordsBtn").addEventListener("click", () => {
+viewPasswordsBtn.addEventListener("click", () => {
+  // Fetch the saved passwords from local storage and parse them as JSON
+  const savedPasswordsJson = localStorage.getItem("savedPasswords");
+  const savedPasswordsArray = JSON.parse(savedPasswordsJson) || [];
+
   // Get the modal and the textarea for displaying saved passwords
   const modal = document.getElementById("savedPasswordsModal");
   const textarea = document.getElementById("savedPasswordsTextarea");
@@ -114,11 +130,22 @@ document.getElementById("viewPasswordsBtn").addEventListener("click", () => {
   textarea.value = "";
 
   // Loop through the savedPasswords array and append each password to the textarea
-  savedPasswords.forEach((password, index) => {
-    textarea.value += `Password ${index + 1}: ${password}\n`;
+  savedPasswordsArray.forEach((password, index) => {
+    textarea.value += `Password ${password.passwordNumber}: ${password.passwordValue} (Generated at ${password.timestamp})\n`;
+  });
+
+  // Add an event listener to the "Clear Local Storage" button
+  const clearLocalStorageBtn = document.getElementById("clearLocalStorageBtn");
+  clearLocalStorageBtn.addEventListener("click", () => {
+    // Clear the saved passwords from local storage
+    localStorage.removeItem("savedPasswords");
+    // Display a confirmation message
+    swal("Passwords Saved Cleared!", "All data has been deleted.", "success");
+
+    // Clear the text area value in the modal
+    textarea.value = "";
   });
 
   // Show the modal with passwords saved
   $(modal).modal("hide");
 });
-// ...
