@@ -104,55 +104,21 @@ saveBtn.addEventListener("click", () => {
 });
 
 // ...
+// Add an event listener to the View passwords button
+document.getElementById("viewPasswordsBtn").addEventListener("click", () => {
+  // Get the modal and the textarea for displaying saved passwords
+  const modal = document.getElementById("savedPasswordsModal");
+  const textarea = document.getElementById("savedPasswordsTextarea");
 
-// Add an event listener to the Erase button
-eraseBtn.addEventListener("click", function () {
-  // Retrieve the password from local storage
-  const savedPassword = localStorage.getItem("savedPassword");
+  // Clear the textarea
+  textarea.value = "";
 
-  // Check if a password is saved
-  if (savedPassword) {
-    // Make a DELETE request to the API to erase the password
-    fetch("#", {
-      method: "DELETE",
-      body: JSON.stringify({ password: savedPassword }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the API
-        if (data.success) {
-          // Password erased successfully
-          alert("Password erased successfully.");
-          // Remove the password from local storage
-          localStorage.removeItem("savedPassword");
-        } else {
-          // Password erase failed
-          alert("Failed to erase password.");
-        }
-      })
-      .catch((error) => {
-        // Handle any errors that occur during the API request
-        alert("Failed to erase password.");
-        console.error(error);
-      });
-  } else {
-    // No password saved, show an alert
-    alert("No password to erase.");
-  }
+  // Loop through the savedPasswords array and append each password to the textarea
+  savedPasswords.forEach((password, index) => {
+    textarea.value += `Password ${index + 1}: ${password}\n`;
+  });
 
-  // ...
-
-  // Adding Modal or Text Area to Show the Passwords Saved
-  let savedPasswords = [];
-
-  function showSavedPasswords() {
-    const savedPasswordsTextarea = document.createElement("textarea");
-    savedPasswordsTextarea.value = savedPasswords.join("\n");
-    document.body.appendChild(savedPasswordsTextarea);
-  }
-
-  viewPasswordsBtn.addEventListener("click", showSavedPasswords);
+  // Show the modal with passwords saved
+  $(modal).modal("hide");
 });
+// ...
